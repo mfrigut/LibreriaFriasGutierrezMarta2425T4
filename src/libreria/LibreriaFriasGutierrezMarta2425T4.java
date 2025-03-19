@@ -1,113 +1,164 @@
-
 package libreria;
 
+/**
+ * Clase que representa la disponibilidad (stock) de libros, sus precio y el saldo de una libreria.
+ * @author Marta FrÌas GutiÈrrez
+ * 
+ */
 public class LibreriaFriasGutierrezMarta2425T4 {
-     private String nom;
-    private int cantidad;
-    private double precio;
-    private double saldo;
-    
+
+  private String nom;      // Nombre del libro
+  private int cantidad;     // Cantidad de ejemplares en stock
+  private double precio;  // Precio unitario del libro
+  private double saldo;   // Saldo de la librer√≠a
+
   /**
-   * @return the nom
+   * MÈtodo que obtiene el nombre del libro
+   * @return Nombre del libro
    */
   public String getNom() {
     return nom;
   }
 
   /**
-   * @param nom the nom to set
+   * MÈtodo que establece el nombre del libro
+   * @param nom Nombre del libro a establecer
    */
   public void setNom(String nom) {
     this.nom = nom;
   }
 
   /**
-   * @return the cantidad
+   * MÈtodo que obtiene la cantidad de libros disponibles (en stock)
+   * @return Cantidad de libros disponibles (en stock)
    */
   public int getCantidad() {
     return cantidad;
   }
 
   /**
-   * @param cantidad the cantidad to set
+   * MÈtodo que establece la cantidad de libros disponibles (en stock)
+   * @param cantidad Nueva cantidad de libros disponibles (en stock)
    */
   public void setCantidad(int cantidad) {
     this.cantidad = cantidad;
   }
 
   /**
-   * @return the precio
+   * MÈtodo que obtiene el precio de un libro
+   * @return Precio del libro
    */
   public double getPrecio() {
     return precio;
   }
 
   /**
-   * @param precio the precio to set
+   * MÈtodo que establece el precio de un libro
+   * @param precio Nuevo precio del libro
    */
   public void setPrecio(double precio) {
     this.precio = precio;
   }
 
   /**
-   * @return the saldo
+   * MÈtodo que obtiene el saldo de la librer√≠a
+   * @return Saldo actual
    */
   public double getSaldo() {
     return saldo;
   }
 
   /**
-   * @param saldo the saldo to set
+   * MÈtodo que establece el saldo de la librer√≠a
+   * @param saldo Nuevo saldo a establecer
    */
   public void setSaldo(double saldo) {
     this.saldo = saldo;
   }
 
-    //Constructor sin argumentos
-    public LibreriaFriasGutierrezMarta2425T4(){}
-    //constructor con par√°metros para inicializar todas las propiedades de la clase
-    public LibreriaFriasGutierrezMarta2425T4(String nom, int cantidad, double precio, double saldo){
-        this.nom = nom;                 //Nombre del libro
-        this.cantidad = cantidad;       //Cantidad de ejemplares que hay en stock
-        this.precio = precio;           //Precio unitario del libro
-        this.saldo = saldo;             //Saldo en la cuenta de la librer√≠a
+  /**
+   * Constructor sin par·metros
+   */
+  public LibreriaFriasGutierrezMarta2425T4() {
+  }
+
+  /**
+   * Constructor con cuatro par·metros para inicializar la librerÌ≠a
+   * @param nom Nombre del libro
+   * @param cantidad Cantidad de ejemplares que hay disponibles (en stock)
+   * @param precio Precio del libro
+   * @param saldo Saldo en la cuenta de la librer√≠a
+   */
+  public LibreriaFriasGutierrezMarta2425T4(String nom, int cantidad, double precio, double saldo) {
+    this.nom = nom;
+    this.cantidad = cantidad;
+    this.precio = precio;
+    this.saldo = saldo;
+  }
+
+  /**
+   * MÈtodo que devuelve el nombre del libro
+   * @return Nombre del libro
+   */
+  public String obtenerNombre() {
+    return getNom();
+  }
+
+  /**
+   * MÈtodo que devuelve el precio del libro
+   * @return Precio del libro
+   */
+  public double obtenerPrecio() {
+    return getPrecio();
+  }
+
+  /**
+   * MÈtodo que devuelve la cantidad de libros disponibles (en stock)
+   * @return Cantidad de libros disponibles (en stock)
+   */
+  public int obtenerStock() {
+    return getCantidad();
+  }
+
+  /**
+   * MÈtodo que devuelve el saldo actual de la librerÌ≠a
+   * @return Saldo de la librer√≠a
+   */
+  public double obtenerSaldo() {
+    return getSaldo();
+  }
+
+  /**
+   * MÈtodo para aumentar el saldo de la librerÌ≠a.
+   * @param saldomas Cantidad a incrementar en el saldo
+   * @throws Exception Si la cantidad a ingresar es menor o igual a cero
+   */
+  public void aumentarSaldo(double saldomas) throws Exception {
+    if (saldomas <= 0) {
+      throw new Exception("No se puede ingresar 0 o una cantidad negativa");
     }
-    //M√©todo que devuelve el nombre del libro
-    public String obtenerNombre(){
-        return getNom();
+    setSaldo(getSaldo() + saldomas);
+  }
+
+  /**
+   * MÈtodo para comprar un libro, reduciendo el stock y aumentando el saldo
+   * @param canti Cantidad de libros a comprar
+   * @throws Exception Si la cantidad es negativa, el stock es insuficiente o no hay saldo suficiente para comprar
+   */
+  public void comprarLibro(int canti) throws Exception {
+    if (canti <= 0) {
+      throw new Exception("No se puede retirar una cantidad negativa de libros");
     }
-    //M√©todo que devuelve el precio del libro
-    public double obtenerPrecio(){
-        return getPrecio();
+    if (getCantidad() >= canti) {
+      if (getSaldo() <= getPrecio()) {
+        throw new Exception("No hay suficiente saldo para comprar");
+      } else {
+        setCantidad(getCantidad() - canti);
+        setSaldo(getSaldo() + (getPrecio() * canti));
+      }
+    } else {
+      throw new Exception("No se pueden comprar m√°s libros de los que hay disponibles");
     }
-    //M√©todo que devuelve la cantidad de libros de ese ejemplar que quedan para vender
-    public int obtenerStock(){
-        return getCantidad();
-    }
-    //M√©todo para obtener el saldo en la cuenta
-    public double obtenerSaldo(){
-        return getSaldo();
-    }
-    //M√©todo para aumentar el saldo
-    public void aumentarSaldo(double saldomas) throws Exception{
-        if (saldomas<=0)
-            throw new Exception("No se puede ingresar 0 o una cantidad negativa");
-        setSaldo(getSaldo() + saldomas);
-    }
-    //M√©todo para comprar un ejemplar de un libro, actualiza el stock y el saldo
-    public void comprarLibro(int canti) throws Exception{
-        if (canti <= 0)
-            throw new Exception ("No se puede retirar una cantidad negativa de libros");
-        if (getCantidad()>=canti){
-            if (getSaldo() <= getPrecio())
-                  throw new Exception ("No hay suficiente saldo para comprar");
-            else{
-                setCantidad(getCantidad() - canti);
-                setSaldo(getSaldo() + (getPrecio() * canti));
-            }
-        }
-        else 
-            throw new Exception ("No se pueden comprar m√°s libros de los que hay disponibles");
-       
-    }
+
+  }
 }
